@@ -1,0 +1,24 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Ignore database configuration
+database.yml
+
+# Ignore special env manager's files
+.ruby-version
+.ruby-gemset
+
+# Ignore other unnecessary files
+*~
+
+# Ignore Spring files
+/spring/*.pid
