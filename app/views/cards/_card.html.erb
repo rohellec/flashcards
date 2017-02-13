@@ -1,5 +1,5 @@
 <tr>
   <td><%= card.original_text %></td>
   <td><%= card.translated_text %></td>
-  <td class="text-center"><%= card.review_date_formatted %></td>
+  <td class="text-center"><%= format_date(card.review_date) %></td>
 </tr>
