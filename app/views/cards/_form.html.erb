@@ -1,0 +1,45 @@
+<%= form_for @card, html: { class: "form-horizontal"} do |f| %>
+
+  <% if @card.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @card.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :original_text, "Оригинал", class: "col-sm-4 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :original_text, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :translated_text, "Перевод", class: "col-sm-4 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :translated_text, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :review_date, "Дата пересмотра", class: "col-sm-4 control-label" %>
+    <div class="col-sm-4">
+      <%= f.date_select :review_date %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to "Назад", cards_path, class: "btn btn-default" %>
+      <%= f.submit "Сохранить", class: "btn btn-warning" %>
+      <% if Card.exists?(@card.id) %>
+      <%= link_to "Удалить", @card, method: :delete, class: "btn btn-danger",
+        data: { confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
