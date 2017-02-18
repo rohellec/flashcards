@@ -1,7 +1,7 @@
-<tr>
+<tr class="card-row">
   <td><%= card.original_text %></td>
   <td><%= card.translated_text %></td>
-  <td><%= format_date(card.review_date) %></td>
+  <td class="text-center"><%= format_date(card.review_date) %></td>
 
   <td class="text-right">
     <%= link_to "Показать", card, class: "btn btn-default" %>
