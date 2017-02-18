@@ -1,10 +1,10 @@
 <%= form_for @card, html: { class: "form-horizontal" } do |f| %>
 
   <% if @card.errors.any? %>
-    <div id="error_explanation">
-      <ul>
+    <div id="error_explanation" class="col-sm-offset-1 col-sm-10">
+      <ul class="list-group">
         <% @card.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <li class="list-group-item list-group-item-danger"><%= msg %></li>
         <% end %>
       </ul>
     </div>
