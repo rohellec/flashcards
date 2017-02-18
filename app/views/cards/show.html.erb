@@ -22,7 +22,7 @@
         <div class="form-group">
           <label class="col-sm-6 control-label">Дата пересмотра</label>
           <div class="col-sm-4">
-            <p class="form-control-static"><%= @card.review_date %></p>
+            <p class="form-control-static"><%= format_date(@card.review_date) %></p>
           </div>
         </div>
 
