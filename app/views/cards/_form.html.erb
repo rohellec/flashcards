@@ -27,7 +27,12 @@
   <div class="form-group">
     <%= f.label :review_date, "Дата пересмотра", class: "col-sm-4 control-label" %>
     <div class="col-sm-6">
-      <%= f.date_select :review_date %>
+      <div class="input-group date">
+        <%= f.text_field :review_date, class: "form-control" %>
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-th"></span>
+        </div>
+      </div>
     </div>
   </div>
 
