@@ -1,5 +1,12 @@
-<tr>
+<tr class="card-row">
   <td><%= card.original_text %></td>
   <td><%= card.translated_text %></td>
   <td class="text-center"><%= format_date(card.review_date) %></td>
+
+  <td class="text-right">
+    <%= link_to "Показать", card, class: "btn btn-default" %>
+    <%= link_to "Редактировать", edit_card_path(card), class: "btn btn-warning" %>
+    <%= link_to "Удалить", card, method: :delete, class: "btn btn-danger",
+      data: { confirm: "Вы уверены?" } %>
+  </td>
 </tr>

@@ -1,0 +1,50 @@
+<%= form_for @card, html: { class: "form-horizontal" } do |f| %>
+
+  <% if @card.errors.any? %>
+    <div id="error_explanation" class="col-sm-offset-1 col-sm-10">
+      <ul class="list-group">
+        <% @card.errors.full_messages.each do |msg| %>
+          <li class="list-group-item list-group-item-danger"><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :original_text, "Оригинал", class: "col-sm-4 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :original_text, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :translated_text, "Перевод", class: "col-sm-4 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :translated_text, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :review_date, "Дата пересмотра", class: "col-sm-4 control-label" %>
+    <div class="col-sm-6">
+      <div class="input-group date">
+        <%= f.text_field :review_date, class: "form-control" %>
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-th"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to "Назад", cards_path, class: "btn btn-default" %>
+      <%= f.submit "Сохранить", class: "btn btn-warning" %>
+      <% if Card.exists?(@card.id) %>
+      <%= link_to "Удалить", @card, method: :delete, class: "btn btn-danger",
+        data: { confirm: "Вы уверены?" } %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

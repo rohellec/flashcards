@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <h1 class="card-form">Флеш-карточка</h1>
+
+      <%= form_tag @card, class: "form-horizontal" do %>
+        <div class="form-group">
+          <label class="col-sm-6 control-label">Оригинал</label>
+          <div class="col-sm-4">
+            <p class="form-control-static"><%= @card.original_text %></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-6 control-label">Перевод</label>
+          <div class="col-sm-4">
+            <p class="form-control-static"><%= @card.translated_text %></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-6 control-label">Дата пересмотра</label>
+          <div class="col-sm-4">
+            <p class="form-control-static"><%= format_date(@card.review_date) %></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-8">
+            <%= link_to "Назад", cards_path, class: "btn btn-default" %>
+            <%= link_to "Удалить", @card, method: :delete, class: "btn btn-danger",
+              data: { confirm: "Вы уверены?" } %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
