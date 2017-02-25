@@ -32,31 +32,27 @@
   margin: 0 16px;
 }
 
+
+
+/* FONT-FACE URLS FOR BOOTSTRAP */
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('/assets/glyphicons-halflings-regular.eot');
+  src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff2') format('woff2'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+
+
 /* INPUT FORMS */
 
 #error_explanation {
   color: red;
 }
 
-#error_explanation ul {
-  margin: 0 0 30px 0;
-}
-
-#error_explanation li {
-  border-color: #a94442;
-}
-
-.field_with_errors .form-control {
+.has-error .form-control {
   color: #a94442;
-  border-color: #a94442;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-}
-
-.field_with_errors .form-control:focus {
-  border-color: #843534;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
 }
 
 /* MISC */

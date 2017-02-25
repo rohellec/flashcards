@@ -1,50 +1,20 @@
-<%= form_for @card, html: { class: "form-horizontal" } do |f| %>
+<%= simple_form_for @card, defaults: { required: false }, html: { class: "form-horizontal" },
+  wrapper: :horizontal_form,
+  wrapper_mappings: {
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean
+  } do |f| %>
 
-  <% if @card.errors.any? %>
-    <div id="error_explanation" class="col-sm-offset-1 col-sm-10">
-      <ul class="list-group">
-        <% @card.errors.full_messages.each do |msg| %>
-          <li class="list-group-item list-group-item-danger"><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
 
-  <div class="form-group">
-    <%= f.label :original_text, "Оригинал", class: "col-sm-4 control-label" %>
-    <div class="col-sm-6">
-      <%= f.text_field :original_text, class: "form-control" %>
-    </div>
-  </div>
+  <%= f.input :original_text, label: "Оригинал" %>
 
-  <div class="form-group">
-    <%= f.label :translated_text, "Перевод", class: "col-sm-4 control-label" %>
-    <div class="col-sm-6">
-      <%= f.text_field :translated_text, class: "form-control" %>
-    </div>
-  </div>
+  <%= f.input :translated_text, label: "Перевод" %>
 
-  <div class="form-group">
-    <%= f.label :review_date, "Дата пересмотра", class: "col-sm-4 control-label" %>
-    <div class="col-sm-6">
-      <div class="input-group date">
-        <%= f.text_field :review_date, class: "form-control" %>
-        <div class="input-group-addon">
-          <span class="glyphicon glyphicon-th"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= f.input :review_date, as: :date_picker, label: "Дата пересмотра" %>
 
-  <div class="form-group">
-    <div class="col-sm-offset-4 col-sm-8">
-      <%= link_to "Назад", cards_path, class: "btn btn-default" %>
-      <%= f.submit "Сохранить", class: "btn btn-warning" %>
-      <% if Card.exists?(@card.id) %>
-      <%= link_to "Удалить", @card, method: :delete, class: "btn btn-danger",
-        data: { confirm: "Вы уверены?" } %>
-      <% end %>
-    </div>
-  </div>
+  <%= render "buttons", f: f %>
 
 <% end %>
