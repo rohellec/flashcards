@@ -13,7 +13,9 @@
 
   <%= f.input :translated_text, label: "Перевод" %>
 
-  <%= f.input :review_date, as: :date_picker, label: "Дата пересмотра" %>
+  <% if Card.exists?(@card.id) %>
+    <%= f.input :review_date, as: :date_picker, label: "Дата пересмотра" %>
+  <% end %>
 
   <%= render "buttons", f: f %>
 
