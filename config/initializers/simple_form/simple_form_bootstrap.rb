@@ -112,6 +112,33 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :horizontal_form_static, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :label, class: 'col-sm-6 control-label'
+
+    b.wrapper tag: 'div', class: 'col-sm-4' do |ba|
+      ba.use :input, wrap_with: { tag: 'p', class: 'form-control-static' }
+    end
+  end
+
+  config.wrappers :horizontal_datepicker, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'col-sm-4 control-label'
+
+    b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
+      ba.wrapper tag: 'div', class: 'input-group date form_datetime' do |input_group|
+        input_group.use :input, class: 'form-control'
+        input_group.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+        input_group.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+
+        input_group.wrapper tag: 'div', class: 'input-group-addon' do |addon|
+          addon.use :icon
+        end
+      end
+    end
+  end
+
   config.wrappers :inline_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
@@ -138,27 +165,18 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :horizontal_form_static, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
-    b.use :html5
-    b.use :label, class: 'col-sm-6 control-label'
-
-    b.wrapper tag: 'div', class: 'col-sm-4' do |ba|
-      ba.use :input, wrap_with: { tag: 'p', class: 'form-control-static' }
-    end
-  end
-
   # Wrappers for forms and inputs using the Bootstrap toolkit.
   # Check the Bootstrap docs (http://getbootstrap.com)
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
-  config.default_wrapper = :vertical_form
+  config.default_wrapper = :horizontal_form
   config.wrapper_mappings = {
-    check_boxes: :vertical_radio_and_checkboxes,
-    radio_buttons: :vertical_radio_and_checkboxes,
-    file: :vertical_file_input,
-    boolean: :vertical_boolean,
-    datetime: :multi_select,
-    date: :multi_select,
-    time: :multi_select
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean,
+    datetime: :horizontal_datepicker,
+    date: :horizontal_datepicker,
+    time: :horizontal_datepicker
   }
 end

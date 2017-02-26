@@ -1,11 +1,5 @@
-<%= simple_form_for @card, defaults: { required: false }, html: { class: "form-horizontal" },
-  wrapper: :horizontal_form,
-  wrapper_mappings: {
-    check_boxes: :horizontal_radio_and_checkboxes,
-    radio_buttons: :horizontal_radio_and_checkboxes,
-    file: :horizontal_file_input,
-    boolean: :horizontal_boolean
-  } do |f| %>
+<%= simple_form_for @card, defaults: { required: false },
+  html: { class: "form-horizontal" } do |f| %>
 
   <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
 
@@ -14,7 +8,7 @@
   <%= f.input :translated_text, label: "Перевод" %>
 
   <% if Card.exists?(@card.id) %>
-    <%= f.input :review_date, as: :date_picker, label: "Дата пересмотра" %>
+    <%= f.input :review_date, label: "Дата пересмотра", icon: "glyphicon glyphicon-calendar" %>
   <% end %>
 
   <%= render "buttons", f: f %>
