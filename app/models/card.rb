@@ -14,6 +14,6 @@ class Card < ApplicationRecord
     end
 
     def set_original_review_date
-      self.review_date = Date.today.advance(days: 3)
+      self.review_date = 3.days.from_now
     end
 end
