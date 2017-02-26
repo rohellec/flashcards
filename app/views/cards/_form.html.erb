@@ -7,7 +7,7 @@
 
   <%= f.input :translated_text, label: "Перевод" %>
 
-  <% if Card.exists?(@card.id) %>
+  <% if @card.persisted? %>
     <%= f.input :review_date, label: "Дата пересмотра", icon: "glyphicon glyphicon-calendar" %>
   <% end %>
 
