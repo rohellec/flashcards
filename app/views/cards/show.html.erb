@@ -4,35 +4,18 @@
 
       <h1 class="card-form">Флеш-карточка</h1>
 
-      <%= form_tag @card, class: "form-horizontal" do %>
-        <div class="form-group">
-          <label class="col-sm-6 control-label">Оригинал</label>
-          <div class="col-sm-4">
-            <p class="form-control-static"><%= @card.original_text %></p>
-          </div>
-        </div>
+      <%= simple_form_for @card, defaults: { required: false, as: :display },
+        html: { class: "form-horizontal" },
+        wrapper: :horizontal_form_static do |f| %>
 
-        <div class="form-group">
-          <label class="col-sm-6 control-label">Перевод</label>
-          <div class="col-sm-4">
-            <p class="form-control-static"><%= @card.translated_text %></p>
-          </div>
-        </div>
+        <%= f.input :original_text, label: "Оригинал" %>
 
-        <div class="form-group">
-          <label class="col-sm-6 control-label">Дата пересмотра</label>
-          <div class="col-sm-4">
-            <p class="form-control-static"><%= format_date(@card.review_date) %></p>
-          </div>
-        </div>
+        <%= f.input :translated_text, label: "Перевод" %>
 
-        <div class="form-group">
-          <div class="col-sm-offset-4 col-sm-8">
-            <%= link_to "Назад", cards_path, class: "btn btn-default" %>
-            <%= link_to "Удалить", @card, method: :delete, class: "btn btn-danger",
-              data: { confirm: "Вы уверены?" } %>
-          </div>
-        </div>
+        <%= f.input :review_date, label: "Дата пересмотра" %>
+
+        <%= render "buttons", f: f %>
+
       <% end %>
 
     </div>
