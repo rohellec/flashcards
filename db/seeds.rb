@@ -6,51 +6,24 @@ TABLE_XPATH = '//p[contains(text(), "250 самых популярных анг�
 LINKS_XPATH = '//p[contains(text(), "250 самых популярных английских слов")]'\
               '/following-sibling::p[1]/a/@href'
 
-def split(enum)
-  result = [arr = []]
-  enum.each do |obj|
-    if yield(obj)
-      result << (arr = []) unless arr.empty?
-    else
-      arr << obj
-    end
-  end
-  result.pop if arr.empty?
-  result
-end
-
-def words_from_table(table)
-  result = []
-  rows = table.xpath('tr')
-
-  # trim the header of the table and iterate through the remaining rows
-  rows[1..-1].each do |row|
-    row_cells = row.xpath('td').map { |cell| cell.text.strip }
-
-    # split the row into arrays either around the number or around the dash
-    split(row_cells) { |cell| cell =~ /(\A\d+\Z) | (\A-\Z)/x }.each do |arr|
-      result << arr
-    end
-  end
-  result
-end
-
 def create_cards_from_table(table)
-  words = words_from_table(table)
+  table.xpath('tr').each do |tr|
+    [[2, 3], [5, 6]].each do |i, j|
+      original   = tr.xpath("td[#{i}]").text.strip
+      translated = tr.xpath("td[#{j}]").text.strip
 
-  # if translation part contains more then 1 dot it means that
-  # it is not a translation, but grammar rule
-  vocabulary = words.select { |original, translated| translated.count('.') <= 1 }
+      # if string from original is a word
+      # and translated text doesn't contain any grammar rule
+      if (original =~ /\w+/) && (translated.count('.') <= 1)
+        # replace original text with the part that matched the pattern
+        original = $&
 
-  vocabulary.each do |original, translated|
-    # trim of transcription and verb tenses from original text
-    md = original.match(/\w+/)
-    original = md[0]
+        # remove value counters and verb tenses from translated text
+        translated = translated.gsub(/\d\)\s* | \([a-z\s,;]+\)\s*/x, '')
 
-    # remove verb tenses and meaning counters from translated text
-    translated = translated.gsub(/\d\)\s* | \([a-z\s,;]+\)\s*/x, '')
-
-    Card.create!(original_text: original, translated_text: translated)
+        Card.create!(original_text: original, translated_text: translated)
+      end
+    end
   end
 end
 
