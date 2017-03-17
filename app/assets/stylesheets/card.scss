@@ -1,6 +1,10 @@
 .card-form {
-  text-align: center;
-  margin-bottom: 25px;
+  border: medium solid black;
+  border-radius: 1em;
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+  }
 }
 
 .table .card-row td {
