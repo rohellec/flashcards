@@ -2,4 +2,29 @@
   <div class="jumbotron">
     <p>Первый в мире удобный менеджер флеш-карточек. Именно так.</p>
   </div>
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, class: "alert alert-#{name} alert-dismissible fade in", role: "alert" do %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%= msg %>
+    <% end %>
+  <% end %>
+
+  <% if @card %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 card-form">
+      <h1>Флеш-карточка</h1>
+      <%= render "/home/form" %>
+    </div>
+  </div>
+
+  <% else %>
+
+   <div class="well well-sm">На сегодня карточки закончились</div>
+
+  <% end %>
+
 </div>

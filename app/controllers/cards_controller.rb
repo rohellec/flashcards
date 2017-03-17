@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :set_card, only: [:show, :edit, :update, :destroy, :review]
 
   def index
     @cards = Card.all
@@ -36,6 +36,20 @@ class CardsController < ApplicationController
   def destroy
     @card.destroy
     redirect_to cards_path
+  end
+
+  def review
+    @card.original_text = params[:card][:original_text]
+    if @card.valid?
+      if @card.review(params[:card][:original_text])
+        flash[:success] = "Правильно"
+      else
+        flash[:danger] = "Не правильно"
+      end
+      redirect_to home_index_url
+    else
+      render 'home/index'
+    end
   end
 
   private
