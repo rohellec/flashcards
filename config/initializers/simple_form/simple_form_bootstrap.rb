@@ -117,7 +117,16 @@ SimpleForm.setup do |config|
     b.use :label, class: 'col-sm-6 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-4' do |ba|
-      ba.use :input, wrap_with: { tag: 'p', class: 'form-control-static' }
+      ba.use :input, class: 'form-control-static'
+    end
+  end
+
+  config.wrappers :horizontal_form_static_mixed, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :label, class: 'col-sm-4 control-label'
+
+    b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
+      ba.use :input, class: 'form-control-static'
     end
   end
 
