@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy, :review]
+  before_action :set_review_text, only: :review
 
   def index
     @cards = Card.all
@@ -39,10 +40,10 @@ class CardsController < ApplicationController
   end
 
   def review
-    @card.original_text = params[:card][:original_text]
-    if @card.valid?
-      if @card.review(params[:card][:original_text])
+    if @card.valid?(:card_review)
+      if @card.right_translation?
         flash[:success] = "Правильно"
+        @card.update_review_date(3.days.from_now)
       else
         flash[:danger] = "Не правильно"
       end
@@ -58,7 +59,11 @@ class CardsController < ApplicationController
       @card = Card.find(params[:id])
     end
 
+    def set_review_text
+      @card.review_text = params[:card][:review_text]
+    end
+
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date)
+      params.require(:card).permit(:original_text, :translated_text, :review_date, :review_text)
     end
 end
