@@ -1,6 +1,5 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy, :review]
-  before_action :set_review_text, only: :review
 
   def index
     @cards = Card.all
@@ -40,16 +39,17 @@ class CardsController < ApplicationController
   end
 
   def review
-    if @card.valid?(:card_review)
-      if @card.right_translation?
+    if params[:card][:original_text].blank?
+      @card.errors.add(:original_text, :blank)
+      render "home/index"
+    else
+      if @card.right_translation?(params[:card][:original_text])
         flash[:success] = "Правильно"
         @card.update_review_date(3.days.from_now)
       else
         flash[:danger] = "Не правильно"
       end
       redirect_to home_index_url
-    else
-      render 'home/index'
     end
   end
 
@@ -57,10 +57,6 @@ class CardsController < ApplicationController
 
     def set_card
       @card = Card.find(params[:id])
-    end
-
-    def set_review_text
-      @card.review_text = params[:card][:review_text]
     end
 
     def card_params

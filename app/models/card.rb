@@ -2,15 +2,12 @@ class Card < ApplicationRecord
   scope :for_review, -> { where "? >= review_date", Date.current }
 
   validates :original_text, :translated_text, :review_date, presence: true
-  validates :review_text, presence: true, on: :card_review
   validate  :can_not_be_equal
 
   before_validation :set_original_review_date, on: :create
 
-  attr_accessor :review_text
-
-  def right_translation?
-    review_text.strip.casecmp?(original_text)
+  def right_translation?(param)
+    param.strip.casecmp?(original_text)
   end
 
   def update_review_date(param)
