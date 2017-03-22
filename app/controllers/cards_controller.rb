@@ -39,17 +39,17 @@ class CardsController < ApplicationController
   end
 
   def review
-    if params[:card][:original_text].blank?
-      @card.errors.add(:original_text, :blank)
-      render "home/index"
-    else
+    if params[:card][:original_text].present?
       if @card.right_translation?(params[:card][:original_text])
         flash[:success] = "Правильно"
-        @card.update_review_date(3.days.from_now)
+        @card.update_next_review_date
       else
         flash[:danger] = "Не правильно"
       end
       redirect_to home_index_url
+    else
+      @card.errors.add(:original_text, :blank)
+      render "home/index"
     end
   end
 

@@ -10,8 +10,8 @@ class Card < ApplicationRecord
     param.strip.casecmp?(original_text)
   end
 
-  def update_review_date(param)
-    update(review_date: param)
+  def update_next_review_date
+    update(review_date: 3.days.from_now)
   end
 
   private
