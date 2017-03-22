@@ -1,0 +1,17 @@
+<%= simple_form_for @card, defaults: { required: false },
+  url: review_card_path(@card), html: { class: "form-horizontal" } do |f| %>
+
+  <%= f.error_notification message: "Пожалуйста, введите оригинальный текст:" %>
+
+  <%= f.input :translated_text, label: "Перевод", as: :display,
+    wrapper: :horizontal_form_static_mixed %>
+
+  <%= f.input :original_text, label: "Оригинал", input_html: { value: "" } %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= f.submit "Проверить", class: "btn btn-warning" %>
+    </div>
+  </div>
+
+<% end %>

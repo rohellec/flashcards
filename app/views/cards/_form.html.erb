@@ -1,16 +1,26 @@
-<%= simple_form_for @card, defaults: { required: false },
-  html: { class: "form-horizontal" } do |f| %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 card-form">
 
-  <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
+      <%= content_tag :h1, header %>
 
-  <%= f.input :original_text, label: "Оригинал" %>
+      <%= simple_form_for @card, defaults: { required: false },
+        html: { class: "form-horizontal" } do |f| %>
 
-  <%= f.input :translated_text, label: "Перевод" %>
+        <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
 
-  <% if @card.persisted? %>
-    <%= f.input :review_date, label: "Дата пересмотра", icon: "glyphicon glyphicon-calendar" %>
-  <% end %>
+        <%= f.input :original_text, label: "Оригинал" %>
 
-  <%= render "buttons", f: f %>
+        <%= f.input :translated_text, label: "Перевод" %>
 
-<% end %>
+        <% if @card.persisted? %>
+          <%= f.input :review_date, label: "Дата пересмотра", icon: "glyphicon glyphicon-calendar" %>
+        <% end %>
+
+        <%= render "buttons", f: f %>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
