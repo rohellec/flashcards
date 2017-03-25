@@ -1,10 +1,5 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
-
 gem 'coffee-rails', '4.2.1'
 gem 'jbuilder', '2.6.1'
 gem 'jquery-rails', '4.2.2'
@@ -20,6 +15,7 @@ gem 'uglifier', '3.0.4'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
+  gem 'rspec-rails', '3.5.2'
 end
 
 group :development do
@@ -27,4 +23,8 @@ group :development do
   gem 'spring', '2.0.1'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console', '3.4.0'
+end
+
+group :test do
+  gem 'factory_girl_rails', '4.8.0'
 end
