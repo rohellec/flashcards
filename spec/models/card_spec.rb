@@ -3,43 +3,14 @@ require 'rails_helper'
 describe Card do
   let(:card) { build(:card) }
 
-  describe "validations" do
-    context "for presence" do
-      context "with filled attributes" do
-        it { expect(card).to be_valid }
-      end
+  describe "with :translated_text == :original_text" do
+    before { card.translated_text = card.original_text }
 
-      context "with empty attributes" do
-        let(:empty_card) { Card.new }
-        before { empty_card.validate }
+    it { expect(card).to be_invalid }
 
-        it { expect(empty_card).to be_invalid }
-
-        it "contains error message for :original_text" do
-          expect(empty_card.errors[:original_text]).not_to be_empty
-        end
-
-        it "contains error message for :translated_text" do
-          expect(empty_card.errors[:original_text]).not_to be_empty
-        end
-
-        it "contains error message for :review_date" do
-          expect(empty_card.errors[:original_text]).not_to be_empty
-        end
-      end
-    end
-
-    context " for :translated_text != :original_text" do
-      before do
-        card.translated_text = card.original_text
-        card.validate
-      end
-
-      it { expect(card).to be_invalid }
-
-      it "contains error message for :translated_text" do
-        expect(card.errors[:translated_text]).not_to be_empty
-      end
+    it "was not saved to database" do
+      card.save
+      expect(card.persisted?).to be_falsey
     end
   end
 
@@ -75,17 +46,6 @@ describe Card do
     it "returns false if arg != :original_text" do
       arg = card.original_text * 2
       expect(card.right_translation?(arg)).to be_falsey
-    end
-  end
-
-  describe "#update_next_review_date" do
-    before do
-      card.save
-      card.update_next_review_date
-    end
-
-    it "updates :review_date to 3 days from today" do
-      expect(card.review_date).to eq(3.days.from_now.to_date)
     end
   end
 end
