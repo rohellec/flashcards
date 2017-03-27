@@ -7,8 +7,6 @@ describe Card do
     let(:new_card) { Card.new }
     before { new_card.translated_text = new_card.original_text }
 
-    it { expect(new_card).to be_invalid }
-
     it "was not saved to database" do
       new_card.save
       expect(new_card.persisted?).to be_falsey
