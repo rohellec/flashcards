@@ -1,31 +1,27 @@
 require 'rails_helper'
 
 describe Card do
-  let(:card) { build(:card) }
+  let(:card) { create(:card) }
 
   describe "with :translated_text == :original_text" do
-    before { card.translated_text = card.original_text }
+    let(:new_card) { Card.new }
+    before { new_card.translated_text = new_card.original_text }
 
-    it { expect(card).to be_invalid }
+    it { expect(new_card).to be_invalid }
 
     it "was not saved to database" do
-      card.save
-      expect(card.persisted?).to be_falsey
+      new_card.save
+      expect(new_card.persisted?).to be_falsey
     end
   end
 
   describe ":review_date after creation" do
-    before { card.save }
-
     it "is set to 3 days from now" do
-      card.save
       expect(card.review_date).to eq(3.days.from_now.to_date)
     end
   end
 
   describe ".for_review" do
-    before { card. save }
-
     it "contains only cards with review_date <= today" do
       card.update(review_date: Date.current)
       expect(Card.for_review).to include(card)
