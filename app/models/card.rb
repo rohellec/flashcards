@@ -4,14 +4,15 @@ class Card < ApplicationRecord
   validates :original_text, :translated_text, :review_date, presence: true
   validate  :can_not_be_equal
 
-  before_validation :set_original_review_date, on: :create
+  before_validation :set_next_review_date, on: :create
 
   def right_translation?(param)
     param.strip.casecmp?(original_text)
   end
 
   def update_next_review_date
-    update(review_date: 3.days.from_now)
+    set_next_review_date
+    save
   end
 
   private
@@ -23,7 +24,7 @@ class Card < ApplicationRecord
       end
     end
 
-    def set_original_review_date
+    def set_next_review_date
       self.review_date = 3.days.from_now
     end
 end
