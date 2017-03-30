@@ -1,4 +1,4 @@
-# Flashcards
+# Flashcards [![Build Status](https://travis-ci.org/rohellec/flashcards.svg?branch=master)](https://travis-ci.org/rohellec/flashcards)
 
 This is a web application prototype for flashcards (also known as [*anki*](https://en.wikipedia.org/wiki/Anki_(software)) cards).
 Flashcards are often used for memorizing foreign words, unknown word definitions
