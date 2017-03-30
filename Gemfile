@@ -27,4 +27,5 @@ end
 
 group :test do
   gem 'factory_girl_rails', '4.8.0'
+  gem 'capybara', '2.13.0'
 end
