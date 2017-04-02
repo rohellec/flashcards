@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  belongs_to :user
   scope :for_review, -> { where "? >= review_date", Date.current }
 
   validates :original_text, :translated_text, :review_date, presence: true
