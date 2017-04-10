@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def index
-    if Card.for_review.any?
-      @card = Card.for_review.order("random()").take
+    if logged_in?
+      review_cards = current_user.cards.for_review
+      @card = review_cards.order("random()").take if review_cards.any?
     end
   end
 end

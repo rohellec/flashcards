@@ -23,6 +23,14 @@
   margin: 0;
 }
 
+.center {
+  text-align: center;
+}
+
+.center p {
+  margin-bottom: 25px;
+}
+
 .navigation-links {
   float: right;
 }

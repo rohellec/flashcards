@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 user-form">
+
+      <%= content_tag :h1, header %>
+
+      <%= simple_form_for @user, url: url, defaults: { required: false },
+        wrapper: :vertical_form do |f| %>
+
+        <%= f.input :email %>
+
+        <%= f.input :password, label: "Пароль" %>
+
+        <%= f.input :password_confirmation, label: "Подтвердите пароль" %>
+
+        <%= f.submit button, class: "btn btn-lg btn-success" %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

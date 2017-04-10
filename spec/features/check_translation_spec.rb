@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 feature "Check card translation" do
-  given(:card) { create(:card) }
+  given(:user) { create(:user) }
+  given(:card) { create(:card, user: user) }
+
   background do
+    login(user.email, "foobar")
     card.update(review_date: Date.current)
     visit home_index_path
   end
