@@ -6,4 +6,9 @@ class DateTimeInput < SimpleForm::Inputs::DateTimeInput
 
     @builder.text_field(attribute_name, merged_input_options)
   end
+
+  # override label_html_options method to generate label 'for' attribute correctly
+  def label_html_options
+    super.merge(for: "#{object_name}_#{attribute_name}")
+  end
 end

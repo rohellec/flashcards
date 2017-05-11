@@ -1,29 +1,36 @@
 <div class="container-fluid">
-  <div class="jumbotron">
-    <p>Первый в мире удобный менеджер флеш-карточек. Именно так.</p>
-  </div>
 
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, class: "alert alert-#{name} alert-dismissible fade in", role: "alert" do %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <%= msg %>
+<%= render "shared/flash_messages" %>
+
+  <% if logged_in? %>
+
+    <% if @card %>
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 card-form">
+          <h1>Флеш-карточка</h1>
+          <%= render "/home/form" %>
+        </div>
+      </div>
+
+    <% elsif %>
+
+      <div class="well well-sm">
+        Вы пока не добавили ни одной карточки. Добавьте несколько для начала работы
+      </div>
+
+    <% else %>
+
+      <div class="well well-sm">На сегодня карточки закончились</div>
+
     <% end %>
-  <% end %>
-
-  <% if @card %>
-
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 card-form">
-      <h1>Флеш-карточка</h1>
-      <%= render "/home/form" %>
-    </div>
-  </div>
 
   <% else %>
 
-   <div class="well well-sm">На сегодня карточки закончились</div>
+    <div class="center jumbotron">
+      <p>Первый в мире удобный менеджер флеш-карточек. Именно так.</p>
+      <%= link_to "Регистрация", signup_path, class: "btn btn-lg btn-success" %>
+    </div>
 
   <% end %>
 
