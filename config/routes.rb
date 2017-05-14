@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'oauths/ouath'
+
+  get 'oauths/callback'
+
   root 'home#index', as: 'home_index'
 
   resources :cards do
@@ -13,4 +17,8 @@ Rails.application.routes.draw do
   get    'login',  to: 'sessions#new'
   post   'login',  to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+
+  post 'oauth/callback',  to: 'oauths#callback'
+  get  'oauth/callback',  to: 'oauths#callback'
+  get  'oauth/:provider', to: 'oauths#oauth', as: :auth_at_provider
 end

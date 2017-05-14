@@ -13,6 +13,9 @@
 # Ignore database configuration
 database.yml
 
+# Ignore special dotenv files
+.env*
+
 # Ignore special env manager's files
 .ruby-version
 .ruby-gemset

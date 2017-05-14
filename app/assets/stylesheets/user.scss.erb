@@ -1,0 +1,37 @@
+.user-form {
+  input[type=submit] {
+    display: block;
+    margin: 25px auto;
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .oauth-buttons .oauth-google {
+      display: block;
+      background: url(<%= asset_path 'google-logo.svg' %>) no-repeat left 15px center/18px;
+  }
+
+  .or-row {
+    display: flex;
+    align-items: center;
+    margin: 22px 0;
+  }
+
+  .or-line {
+    flex: 1 1;
+    height: 1px;
+    background-color: #f3f3f3;
+  }
+
+  .or-text {
+    font-family: sans-serif;
+    font-weight: lighter;
+    color: #b4b4b4;
+    margin: 0 8px;
+    font-size: 0.8em;
+  }
+}

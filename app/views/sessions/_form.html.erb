@@ -6,6 +6,8 @@
 
       <%= render "shared/flash_messages" %>
 
+      <%= render "shared/oauth_buttons" %>
+
       <%= simple_form_for :session, url: login_path, method: :post,
         defaults: { required: false }, wrapper: :vertical_form do |f| %>
 

@@ -16,6 +16,7 @@ gem 'uglifier', '3.0.4'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
+  gem 'dotenv-rails', '2.2.1'
   gem 'rspec-rails', '3.5.2'
 end
 

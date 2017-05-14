@@ -1,6 +1,10 @@
 class User < ApplicationRecord
-  authenticates_with_sorcery!
+  authenticates_with_sorcery! do |config|
+    config.authentications_class = Authentication
+  end
   before_save { email.downcase! }
+
+  has_many :authentications, dependent: :destroy
   has_many :cards, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d]+(\.[a-z\d]+)?\.[a-z]+\z/i
