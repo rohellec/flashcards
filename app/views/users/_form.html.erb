@@ -4,6 +4,11 @@
 
       <%= content_tag :h1, header %>
 
+      <% if @user.new_record? %>
+        <%= render "shared/flash_messages" %>
+        <%= render "shared/oauth_buttons" %>
+      <% end %>
+
       <%= simple_form_for @user, url: url, defaults: { required: false },
         wrapper: :vertical_form do |f| %>
 
@@ -16,6 +21,7 @@
         <%= f.submit button, class: "btn btn-lg btn-success" %>
 
       <% end %>
+
     </div>
   </div>
 </div>
