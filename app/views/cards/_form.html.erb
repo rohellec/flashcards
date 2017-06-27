@@ -9,6 +9,8 @@
 
         <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
 
+        <%= f.input :picture, as: :file, label: "Изображение" %>
+
         <%= f.input :original_text, label: "Оригинал" %>
 
         <%= f.input :translated_text, label: "Перевод" %>

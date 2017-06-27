@@ -1,9 +1,16 @@
 class Card < ApplicationRecord
   belongs_to :user
+  has_attached_file :picture, styles: { normal: "360x360#" },
+                              default_style: :normal,
+                              default_url: "/images/:class/:attachment/:style/missing.png"
+
   scope :for_review, -> { where "? >= review_date", Date.current }
 
   validates :original_text, :translated_text, :review_date, presence: true
-  validate  :can_not_be_equal
+  validates_attachment :picture, content_type: { content_type: /\Aimage/ },
+                                 file_name: { matches: [/png\z/, /jpe?g\z/, /gif\z/] },
+                                 size: { less_than: 5.megabytes }
+  validate :can_not_be_equal
 
   before_validation :set_next_review_date, on: :create
 
