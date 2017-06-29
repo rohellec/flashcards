@@ -29,6 +29,10 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails', '4.8.0'
   gem 'capybara', '2.13.0'
+  gem 'factory_girl_rails', '4.8.0'
+end
+
+group :production do
+  gem 'aws-sdk', '2.10.6'
 end
