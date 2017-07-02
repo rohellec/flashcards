@@ -1,4 +1,5 @@
 class Card < ApplicationRecord
+  attr_reader :picture_remote_url
   belongs_to :user
   has_attached_file :picture, styles: { normal: "360x360#" },
                               default_style: :normal,
@@ -13,6 +14,12 @@ class Card < ApplicationRecord
   validate :can_not_be_equal
 
   before_validation :set_next_review_date, on: :create
+
+  def picture_remote_url=(url_value)
+    return if url_value.blank?
+    self.picture = URI.parse(url_value) unless picture.file?
+    @picture_remote_url = url_value
+  end
 
   def right_translation?(param)
     param.strip.casecmp?(original_text)

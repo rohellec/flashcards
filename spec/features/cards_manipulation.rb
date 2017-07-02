@@ -39,37 +39,6 @@ feature "Manipulating cards" do
       visit cards_path
       expect(page).to have_content("Bye")
     end
-
-    context "without picture" do
-      scenario "shows default picture" do
-        click_button("Сохранить")
-        expect(page).to have_css("img[src*='missing.png']")
-      end
-    end
-
-    context "with picture" do
-      context "of invalid large size" do
-        background do
-          attach_file("Изображение", "#{Rails.root}/spec/fixtures/test-large.jpeg")
-          click_button("Сохранить")
-        end
-
-        scenario "generates error" do
-          expect(page).to have_css(".alert-danger")
-        end
-      end
-
-      context "of valid normal size" do
-        background do
-          attach_file("Изображение", "#{Rails.root}/spec/fixtures/test-normal.jpeg")
-          click_button("Сохранить")
-        end
-
-        scenario "shows uploaded picture" do
-          expect(page).to have_css("img[src*='normal.jpeg']")
-        end
-      end
-    end
   end
 
   context "Updating card" do
