@@ -20,6 +20,9 @@ database.yml
 .ruby-version
 .ruby-gemset
 
+# Ignore any publicly available card images uploaded by the users
+/public/system/cards/*
+
 # Ignore other unnecessary files
 *~
 

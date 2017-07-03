@@ -4,6 +4,7 @@ gem 'coffee-rails', '4.2.1'
 gem 'jbuilder', '2.6.1'
 gem 'jquery-rails', '4.2.2'
 gem 'nokogiri', '1.7.0.1'
+gem 'paperclip', '5.1.0'
 gem 'pg', '0.19.0'
 gem 'puma', '3.7.0'
 gem 'rails', '5.0.1'
@@ -28,6 +29,10 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails', '4.8.0'
   gem 'capybara', '2.13.0'
+  gem 'factory_girl_rails', '4.8.0'
+end
+
+group :production do
+  gem 'aws-sdk', '2.10.6'
 end

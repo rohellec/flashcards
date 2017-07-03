@@ -8,6 +8,9 @@
         html: { class: "form-horizontal" },
         wrapper: :horizontal_form_static do |f| %>
 
+        <%= image_tag @card.picture.url, alt: @card.translated_text,
+            class: "card-picture"  %>
+
         <%= f.input :original_text, label: "Оригинал" %>
 
         <%= f.input :translated_text, label: "Перевод" %>

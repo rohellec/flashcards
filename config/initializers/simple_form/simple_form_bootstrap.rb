@@ -61,7 +61,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'col-sm-4 control-label'
+    b.use :label, class: 'col-sm-5 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
       ba.use :input, class: 'form-control'
@@ -76,7 +76,7 @@ SimpleForm.setup do |config|
     b.optional :maxlength
     b.optional :minlength
     b.optional :readonly
-    b.use :label, class: 'col-sm-4 control-label'
+    b.use :label, class: 'col-sm-5 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
       ba.use :input
@@ -89,7 +89,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper tag: 'div', class: 'col-sm-offset-4 col-sm-6' do |wr|
+    b.wrapper tag: 'div', class: 'col-sm-offset-5 col-sm-6' do |wr|
       wr.wrapper tag: 'div', class: 'checkbox' do |ba|
         ba.use :label_input
       end
@@ -103,7 +103,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.use :label, class: 'col-sm-4 control-label'
+    b.use :label, class: 'col-sm-5 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
       ba.use :input
@@ -123,7 +123,7 @@ SimpleForm.setup do |config|
 
   config.wrappers :horizontal_form_static_mixed, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
-    b.use :label, class: 'col-sm-4 control-label'
+    b.use :label, class: 'col-sm-5 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
       ba.use :input, class: 'form-control-static'
@@ -133,7 +133,7 @@ SimpleForm.setup do |config|
   config.wrappers :horizontal_datepicker, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
-    b.use :label, class: 'col-sm-4 control-label'
+    b.use :label, class: 'col-sm-5 control-label'
 
     b.wrapper tag: 'div', class: 'col-sm-6' do |ba|
       ba.wrapper tag: 'div', class: 'input-group date form_datetime' do |input_group|
