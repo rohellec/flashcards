@@ -1,6 +1,10 @@
 class CardsController < ApplicationController
+  include DecksHelper
+
   before_action :require_login
+  before_action :set_deck, only: [:new, :create]
   before_action :set_card, only: [:show, :edit, :update, :destroy, :review]
+  before_action :store_card_back_location, only: [:index]
 
   def index
     @cards = current_user.cards
@@ -16,8 +20,18 @@ class CardsController < ApplicationController
   def edit
   end
 
+  def back
+    if session[:card_back_url]
+      redirect_to session[:card_back_url]
+    elsif current_deck
+      redirect_to deck_url(current_deck)
+    else
+      redirect_to cards_url
+    end
+  end
+
   def create
-    @card = current_user.cards.build(card_params)
+    @card = @deck.cards.build(card_params)
     if @card.save
       redirect_to @card
     else
@@ -35,7 +49,7 @@ class CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to cards_path
+    redirect_to card_back_url
   end
 
   def review
@@ -54,6 +68,10 @@ class CardsController < ApplicationController
   end
 
   private
+
+    def set_deck
+      @deck = current_user.decks.find_by(id: params[:deck_id])
+    end
 
     def set_card
       @card = current_user.cards.find(params[:id])

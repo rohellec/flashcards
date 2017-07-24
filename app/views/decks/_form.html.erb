@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 card-form">
+
+      <%= content_tag :h1, header %>
+
+      <%= simple_form_for @deck, defaults: { required: false },
+                                 html: { class: "form-horizontal" } do |f| %>
+
+        <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>
+
+        <%= f.input :name, label: "Название колоды" %>
+
+        <div class="form-group">
+          <div class="text-center">
+
+            <%= link_to "Назад", decks_path, class: "btn btn-default" %>
+
+            <%= f.submit "Сохранить", class: "btn btn-warning" %>
+
+            <% if @deck.persisted? %>
+              <%= link_to "Удалить", @deck, method: :delete, class: "btn btn-danger",
+                data: { confirm: "Вы уверены?" } %>
+            <%end %>
+
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

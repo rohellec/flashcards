@@ -1,0 +1,10 @@
+<div class="deck-header clearfix">
+  <h1 class="pull-left">Колоды карточек</h1>
+  <div class="buttons pull-right">
+    <%= link_to "Добавить колоду", new_deck_path, class: "btn btn-success" %>
+  </div>
+</div>
+
+<ul class="deck-list">
+  <%= render @decks %>
+</ul>

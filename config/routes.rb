@@ -5,9 +5,15 @@ Rails.application.routes.draw do
 
   root 'home#index', as: 'home_index'
 
-  resources :cards do
+  resources :decks do
+    patch 'switch', on: :member
+    resources :cards, only: [:new, :create]
+  end
+
+  resources :cards, only: [:index, :show, :edit, :update, :destroy] do
     patch 'review', on: :member
   end
+  get 'card/back', to: 'cards#back'
 
   resources :users, only: [:new, :create, :edit, :update]
 

@@ -39,7 +39,7 @@ feature "User Sign up" do
     scenario "logs the user in" do
       click_on "Зарегистрироваться"
       expect(page).not_to have_link("Войти", href: login_path)
-      expect(page).to have_link("Добавить карточку", href: new_card_path)
+      expect(page).to have_link("Колоды", href: decks_path)
     end
 
     scenario "generates success message" do

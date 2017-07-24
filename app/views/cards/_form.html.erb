@@ -4,7 +4,7 @@
 
       <%= content_tag :h1, header %>
 
-      <%= simple_form_for @card, defaults: { required: false },
+      <%= simple_form_for [@deck, @card], defaults: { required: false },
         html: { class: "form-horizontal" } do |f| %>
 
         <%= f.error_notification message: "Пожалуйста, устраните следующие ошибки:" %>

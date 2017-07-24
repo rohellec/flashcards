@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature "Check card translation" do
   given(:user) { create(:user) }
-  given(:card) { create(:card, user: user) }
+  given(:deck) { create(:deck, user: user) }
+  given(:card) { create(:card, deck: deck) }
 
   background do
     login(user.email, "foobar")

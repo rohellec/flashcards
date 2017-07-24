@@ -23,7 +23,10 @@
               <ul class="nav navbar-nav navbar-right">
                 <% if logged_in? %>
                   <li><%= link_to "Все карточки", cards_path %></li>
-                  <li><%= link_to "Добавить карточку", new_card_path %></li>
+                  <li><%= link_to "Колоды", decks_path %></li>
+                  <% if current_deck %>
+                    <li><%= link_to "Добавить карточку", new_deck_card_path(current_deck) %></li>
+                  <% end %>
                   <li class="dropdown">
                     <a href='#' class="dropdown-toggle" data-toggle="dropdown">
                       Аккаунт <span class="caret"></span>

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Updating Profile" do
   given(:user) { create(:user, email: "foo@bar.com", password: "foobar") }
-  given!(:email) { "john@doe.com" }
+  given(:email) { "john@doe.com" }
 
   background { login(user.email, "foobar") }
 
