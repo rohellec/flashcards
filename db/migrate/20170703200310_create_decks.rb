@@ -9,5 +9,6 @@ class CreateDecks < ActiveRecord::Migration[5.0]
 
     add_column :cards, :deck_id, :integer, foreign_key: true, index: true
     add_column :users, :current_deck_id, :integer, index: true
+    remove_column :cards, :user_id, :integer
   end
 end
