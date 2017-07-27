@@ -47,6 +47,10 @@ feature "Manipulating decks" do
       expect(page).to have_content(deck.name)
     end
 
+    scenario "has special button for adding cards to selected deck" do
+      expect(page).to have_css(".btn", text: "Добавить карточку")
+    end
+
     scenario "lists all cards for selected deck" do
       deck.cards.each do |card|
         expect(page).to have_content(card.original_text)
