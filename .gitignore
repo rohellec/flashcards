@@ -17,7 +17,6 @@ database.yml
 .env*
 
 # Ignore special env manager's files
-.ruby-version
 .ruby-gemset
 
 # Ignore any publicly available card images uploaded by the users
