@@ -15,7 +15,7 @@ feature "Logging in" do
     end
 
     scenario "there is no link for adding card" do
-      expect(page).not_to have_link("Добавить карточку", href: new_card_path)
+      expect(page).not_to have_link("Колоды", href: decks_path)
     end
   end
 
@@ -34,7 +34,7 @@ feature "Logging in" do
     end
 
     scenario "doesn't show link for adding card" do
-      expect(page).not_to have_link("Добавить карточку", href: new_card_path)
+      expect(page).not_to have_link("Колоды", href: decks_path)
     end
   end
 
@@ -56,7 +56,7 @@ feature "Logging in" do
 
     scenario "logs the user in" do
       expect(page).not_to have_link("Войти", href: login_path)
-      expect(page).to have_link("Добавить карточку", href: new_card_path)
+      expect(page).to have_link("Колоды", href: decks_path)
     end
 
     context "then logging out" do
@@ -67,7 +67,7 @@ feature "Logging in" do
       end
 
       scenario "there is no link for adding card" do
-        expect(page).not_to have_link("Добавить карточку", href: new_card_path)
+        expect(page).not_to have_link("Колоды", href: decks_path)
       end
     end
   end

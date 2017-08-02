@@ -3,11 +3,12 @@ require 'open-uri'
 VOCABULARY_URL = 'http://www.homeenglish.ru/250Popular.htm'
 TABLE_XPATH = '//p[contains(text(), "250 самых популярных английских слов")]'\
               '/following-sibling::table[1]'
+TABLE_NAME  = 'Популярные слова'
 LINKS_XPATH = '//p[contains(text(), "250 самых популярных английских слов")]'\
               '/following-sibling::p[1]/a/@href'
 
-def create_cards_from_table(table, user)
-  return if user.nil?
+def create_cards_from_table(table, deck)
+  return if deck.nil?
   table.xpath('tr').each do |tr|
     [[2, 3], [5, 6]].each do |i, j|
       original   = tr.xpath("td[#{i}]").text.strip
@@ -20,16 +21,16 @@ def create_cards_from_table(table, user)
         original = $&
 
         # remove value counters and verb tenses from translated text
-        translated = translated.gsub(/\d\)\s* | \([a-z\s,;]+\)\s*/x, '')
+        translated.gsub!(/\d\)\s* | \([a-z\s,;]+\)\s*/x, '')
 
-        user.cards.create!(original_text: original, translated_text: translated)
+        deck.cards.create!(original_text: original, translated_text: translated)
       end
     end
   end
 end
 
 def table_from_url(link, path)
-  doc = Nokogiri::HTML(open(link)) { |config| config.noblanks }
+  doc = Nokogiri::HTML(open(link), &:noblanks)
   doc.xpath(path)
 end
 
@@ -40,22 +41,21 @@ end
 
 # adding example user or using existing one
 user = User.find_by(email: "john.doe@example.com")
-unless user
-  user = User.create(email: "john.doe@example.com", password: "foobar", password_confirmation: "foobar")
-end
+user ||= User.create(email: "john.doe@example.com", password: "foobar", password_confirmation: "foobar")
 
-user.cards.delete_all
+user.decks.delete_all
+deck = user.decks.create(name: TABLE_NAME)
 
 # create cards from default url
 table = table_from_url(VOCABULARY_URL, TABLE_XPATH)
-create_cards_from_table(table, user)
+create_cards_from_table(table, deck)
 
 # create cards from other urls on the page
-doc = Nokogiri::HTML(open(VOCABULARY_URL)) { |config| config.noblanks }
+doc = Nokogiri::HTML(open(VOCABULARY_URL), &:noblanks)
 link_nodes = doc.xpath(LINKS_XPATH)
 
 link_nodes.each do |link_node|
   rel = link_node.text
   table = table_from_url(full_url(VOCABULARY_URL, rel), TABLE_XPATH)
-  create_cards_from_table(table, user)
+  create_cards_from_table(table, deck)
 end

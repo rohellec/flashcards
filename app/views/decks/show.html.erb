@@ -1,0 +1,9 @@
+<div class="deck-header clearfix">
+  <h1 class="pull-left"><%= @deck.name %></h1>
+  <div class="buttons pull-right">
+    <%= link_to "Добавить карточку", new_deck_card_path(@deck), class: "btn btn-success" %>
+    <%= link_to "Назад", decks_path, class: "btn btn-default" %>
+  </div>
+</div>
+
+<%= render "shared/cards_table" %>

@@ -2,11 +2,12 @@ require 'rails_helper'
 
 feature "Attaching picture to card" do
   given!(:user) { create(:user) }
+  given!(:deck) { create(:deck, user: user) }
 
   background do
-    visit cards_path
     login(user.email, "foobar")
-    click_link("Добавить карточку")
+    switch_deck(deck)
+    click_link("Добавить карточку", match: :first)
     fill_in "Оригинал", with: "Test"
     fill_in "Перевод",  with: "Тест"
   end

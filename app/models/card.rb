@@ -1,6 +1,6 @@
 class Card < ApplicationRecord
   attr_reader :picture_remote_url
-  belongs_to :user
+  belongs_to :deck
   has_attached_file :picture, styles: { normal: "360x360#" },
                               default_style: :normal,
                               default_url: "/images/:class/:attachment/:style/missing.png"

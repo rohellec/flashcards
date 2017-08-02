@@ -1,0 +1,29 @@
+<li class="col-md-3 col-sm-6">
+  <div class="thumbnail deck-item">
+
+    <% if deck == current_deck %>
+      <p class="current">Текущая</p>
+    <% else %>
+      <p class="non-current"></p>
+    <% end %>
+
+    <div class="caption">
+
+      <h3><%= deck.name %></h3>
+
+      <p><%= link_to "Карточек: #{deck.cards.count}", deck_path(deck), title: "Показать" %></p>
+      <p><%= link_to "Добавить карточку", new_deck_card_path(deck) %></p>
+
+      <div class="buttons">
+        <% if deck == current_deck %>
+          <%= link_to "Убрать",  switch_deck_path(deck), method: :patch, class: "btn btn-clear" %>
+        <% else %>
+          <%= link_to "Выбрать", switch_deck_path(deck), method: :patch, class: "btn btn-success" %>
+        <% end %>
+        <%= link_to "Поправить", edit_deck_path(deck), class: "btn btn-warning" %>
+        <%= link_to "Удалить", deck, method: :delete, class: "btn btn-danger",
+            data: { confirm: "Вы уверены?" } %>
+      </div>
+    </div>
+  </div>
+</li>
