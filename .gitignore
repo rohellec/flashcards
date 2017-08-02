@@ -10,9 +10,6 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-# Ignore database configuration
-database.yml
-
 # Ignore special dotenv files
 .env*
 
