@@ -1,6 +1,11 @@
 <%= simple_form_for @card, defaults: { required: false },
   url: review_card_path(@card), html: { class: "form-horizontal" } do |f| %>
 
+  <% if @card.picture.present? %>
+    <%= image_tag @card.picture.url, alt: @card.translated_text,
+        class: "card-picture" %>
+  <% end %>
+
   <%= f.error_notification message: "Пожалуйста, введите оригинальный текст:" %>
 
   <%= f.input :translated_text, label: "Перевод", as: :display,
