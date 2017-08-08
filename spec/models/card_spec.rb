@@ -43,7 +43,7 @@ describe Card do
 
       context "after successful reviews" do
         it "is set according to a number of review tries" do
-          review_tries.each do |num, date|
+          review_tries.each do |_num, date|
             card.review(card.original_text)
             expect(card.review_date).to eq(date)
           end
