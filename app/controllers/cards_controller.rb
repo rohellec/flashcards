@@ -54,9 +54,8 @@ class CardsController < ApplicationController
 
   def review
     if params[:card][:original_text].present?
-      if @card.right_translation?(params[:card][:original_text])
+      if @card.review(params[:card][:original_text])
         flash[:success] = "Правильно"
-        @card.update_next_review_date
       else
         flash[:danger] = "Не правильно"
       end
