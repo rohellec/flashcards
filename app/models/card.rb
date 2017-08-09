@@ -15,6 +15,7 @@ class Card < ApplicationRecord
 
   before_validation :set_next_review_date, on: :create
 
+  ACCEPT_DISTANCE = 2
   REVIEW_DATES = {
     0 => Time.current,
     1 => 12.hours.from_now,
@@ -24,6 +25,10 @@ class Card < ApplicationRecord
     5 => 1.month.from_now
   }.freeze
 
+  def distance_to(param)
+    DamerauLevenshtein.distance(param, original_text)
+  end
+
   def picture_remote_url=(url_value)
     return if url_value.blank?
     self.picture = URI.parse(url_value) unless picture.file?
@@ -31,7 +36,7 @@ class Card < ApplicationRecord
   end
 
   def review(param)
-    result = param.strip.casecmp?(original_text)
+    result = right_translation?(param)
     if result
       self.fail_reviews = 0
       increase_success_reviews
@@ -61,6 +66,10 @@ class Card < ApplicationRecord
   def increase_success_reviews
     return if success_reviews >= REVIEW_DATES.keys.max
     self.success_reviews += 1
+  end
+
+  def right_translation?(param)
+    distance_to(param) <= ACCEPT_DISTANCE
   end
 
   def set_next_review_date

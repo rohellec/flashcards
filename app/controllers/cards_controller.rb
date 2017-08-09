@@ -4,6 +4,7 @@ class CardsController < ApplicationController
   before_action :require_login
   before_action :set_deck, only: [:new, :create]
   before_action :set_card, only: [:show, :edit, :update, :destroy, :review]
+  before_action :require_original_text, only: [:review]
   before_action :store_card_back_location, only: [:index]
 
   def index
@@ -53,20 +54,25 @@ class CardsController < ApplicationController
   end
 
   def review
-    if params[:card][:original_text].present?
-      if @card.review(params[:card][:original_text])
-        flash[:success] = "Правильно"
-      else
-        flash[:danger] = "Не правильно"
-      end
-      redirect_to home_index_url
+    translation = params[:card][:original_text]
+    if @card.review(translation)
+      message = "Верно, правильное значение - #{@card.original_text}"
+      typos_count = @card.distance_to(translation)
+      message += ", у Вас опечатка - #{translation}" unless typos_count.zero?
+      flash[:success] = message
     else
-      @card.errors.add(:original_text, :blank)
-      render "home/index"
+      flash[:danger] = "Не верно, правильное значение - #{@card.original_text}"
     end
+    redirect_to home_index_url
   end
 
   private
+
+    def require_original_text
+      return if params[:card][:original_text].present?
+      @card.errors.add(:original_text, :blank)
+      render "home/index"
+    end
 
     def set_deck
       @deck = current_user.decks.find_by(id: params[:deck_id])
