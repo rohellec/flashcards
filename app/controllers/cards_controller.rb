@@ -68,22 +68,22 @@ class CardsController < ApplicationController
 
   private
 
-    def require_original_text
-      return if params[:card][:original_text].present?
-      @card.errors.add(:original_text, :blank)
-      render "home/index"
-    end
+  def require_original_text
+    return if params[:card][:original_text].present?
+    @card.errors.add(:original_text, :blank)
+    render "home/index"
+  end
 
-    def set_deck
-      @deck = current_user.decks.find_by(id: params[:deck_id])
-    end
+  def set_deck
+    @deck = current_user.decks.find_by(id: params[:deck_id])
+  end
 
-    def set_card
-      @card = current_user.cards.find(params[:id])
-    end
+  def set_card
+    @card = current_user.cards.find(params[:id])
+  end
 
-    def card_params
-      params.require(:card).permit(:original_text, :translated_text, :review_date, :review_text,
-                                   :picture, :picture_remote_url)
-    end
+  def card_params
+    params.require(:card).permit(:original_text, :translated_text, :review_date, :review_text,
+                                 :picture, :picture_remote_url)
+  end
 end

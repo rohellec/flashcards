@@ -5,7 +5,7 @@ class OauthsController < ApplicationController
 
   def callback
     provider = auth_params[:provider]
-    if @user = login_from(provider)
+    if (@user = login_from(provider))
       flash[:info] = "Вы успешно авторизовались с помощью #{provider.titleize}!"
       redirect_to home_index_path
     else
@@ -24,7 +24,7 @@ class OauthsController < ApplicationController
 
   private
 
-    def auth_params
-      params.permit(:code, :provider)
-    end
+  def auth_params
+    params.permit(:code, :provider)
+  end
 end

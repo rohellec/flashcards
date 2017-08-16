@@ -25,8 +25,8 @@ class Card < ApplicationRecord
     5 => 1.month.from_now
   }.freeze
 
-  def distance_to(param)
-    DamerauLevenshtein.distance(param, original_text)
+  def distance_to(arg)
+    DamerauLevenshtein.distance(arg, original_text)
   end
 
   def picture_remote_url=(url_value)
@@ -35,8 +35,8 @@ class Card < ApplicationRecord
     @picture_remote_url = url_value
   end
 
-  def review(param)
-    result = right_translation?(param)
+  def review(arg)
+    result = right_translation?(arg)
     if result
       self.fail_reviews = 0
       increase_success_reviews
@@ -68,8 +68,8 @@ class Card < ApplicationRecord
     self.success_reviews += 1
   end
 
-  def right_translation?(param)
-    distance_to(param) <= ACCEPT_DISTANCE
+  def right_translation?(arg)
+    distance_to(arg) <= ACCEPT_DISTANCE
   end
 
   def set_next_review_date
