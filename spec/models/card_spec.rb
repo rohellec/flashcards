@@ -4,7 +4,7 @@ describe Card do
   let(:card) { create(:card) }
 
   describe "with :translated_text == :original_text" do
-    let(:new_card) { Card.new }
+    let(:new_card) { build(:card) }
     before { new_card.translated_text = new_card.original_text }
 
     it "was not saved to database" do
@@ -24,10 +24,15 @@ describe Card do
       }
     end
     let(:right) { card.original_text }
+    let(:typo)  { card.original_text.sub(/\w/, '\&\&\&') }
     let(:wrong) { card.original_text * 2 }
 
     it "returns true if arg == :original_text" do
       expect(card.review(right)).to be_truthy
+    end
+
+    it "returns true for word with 2 typos" do
+      expect(card.review(typo)).to be_truthy
     end
 
     it "returns false if arg != :original_text" do

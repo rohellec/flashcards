@@ -17,15 +17,22 @@ feature "Check card translation" do
   end
 
   scenario "filling original_text with wrong value" do
-    wrong_val = card.original_text * 2
-    fill_in "Оригинал", with: wrong_val
+    wrong = card.original_text * 2
+    fill_in "Оригинал", with: wrong
     click_on "Проверить"
-    expect(page).to have_content "Не правильно"
+    expect(page).to have_content "Не верно"
+  end
+
+  scenario "filling original_text with word with 2 typos" do
+    typo = card.original_text.sub(/\w/, '\&\&\&')
+    fill_in "Оригинал", with: typo
+    click_on "Проверить"
+    expect(page).to have_content "у Вас опечатка"
   end
 
   scenario "filling original_text with right value" do
     fill_in "Оригинал", with: card.original_text
     click_on "Проверить"
-    expect(page).to have_content "Правильно"
+    expect(page).to have_content "Верно"
   end
 end

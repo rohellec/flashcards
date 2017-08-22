@@ -1,10 +1,9 @@
 class SessionsController < ApplicationController
-
   def new
   end
 
   def create
-    if @user = login(params[:session][:email], params[:session][:password], params[:session][:remember])
+    if (@user = login(params[:session][:email], params[:session][:password], params[:session][:remember]))
       redirect_back_or_to(:home_index, info: "Вы успешно вошли")
     else
       flash.now[:danger] = "Неправильный email или пароль"
@@ -19,7 +18,7 @@ class SessionsController < ApplicationController
 
   private
 
-    def session_params
-      params.require(:session).permit(:email, :password)
-    end
+  def session_params
+    params.require(:session).permit(:email, :password)
+  end
 end
