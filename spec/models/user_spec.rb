@@ -21,31 +21,50 @@ describe User do
     end
   end
 
-  context "#switch_deck" do
-    let(:deck)       { create(:deck, user: user) }
-    let(:other_deck) { create(:deck, name: "Последнее", user: user) }
+  describe "decks and cards" do
+    let(:deck)       { create(:deck_with_cards, user: user) }
+    let(:other_deck) { create(:deck_with_cards, name: "Последнее", user: user) }
 
-    before do
-      user.save
-      user.switch_deck(deck)
-    end
+    before { user.save }
 
-    context "for noncurrent deck" do
-      it "makes deck current" do
-        expect(deck).to eq(user.current_deck)
+    describe "#cards_for_review" do
+      it "contains cards from all of user's decks if no deck is selected" do
+        expect(user.cards_for_review & deck.cards).not_to be_empty
+        expect(user.cards_for_review & other_deck.cards).not_to be_empty
       end
 
-      it "makes previous current deck noncurrent" do
-        user.switch_deck(other_deck)
-        expect(deck).not_to eq(user.current_deck)
+      it "contains only cards from current_deck when it is selected" do
+        user.switch_deck(deck)
+        expect(user.cards_for_review - deck.cards).to be_empty
+      end
+
+      it "contains only cards with review_date less or equal to current" do
+        user.cards_for_review.each do |card|
+          expect(card.review_date).to be <= Date.current
+        end
       end
     end
 
-    context "for current deck" do
+    describe "#switch_deck" do
       before { user.switch_deck(deck) }
 
-      it "makes current deck nil" do
-        expect(user.current_deck).to be_nil
+      context "for noncurrent deck" do
+        it "makes deck current" do
+          expect(deck).to eq(user.current_deck)
+        end
+
+        it "makes previous current deck noncurrent" do
+          user.switch_deck(other_deck)
+          expect(deck).not_to eq(user.current_deck)
+        end
+      end
+
+      context "for current deck" do
+        before { user.switch_deck(deck) }
+
+        it "makes current deck nil" do
+          expect(user.current_deck).to be_nil
+        end
       end
     end
   end

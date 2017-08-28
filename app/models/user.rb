@@ -15,6 +15,16 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 },
                        confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
+  class << self
+    def with_cards_for_review
+      joins(:decks, :cards).where("? >= review_date", Date.current).distinct
+    end
+  end
+
+  def cards_for_review
+    (current_deck ? current_deck.cards : cards).for_review
+  end
+
   def current_deck
     decks.find_by(id: current_deck_id)
   end
