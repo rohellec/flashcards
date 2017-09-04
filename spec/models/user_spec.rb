@@ -21,7 +21,7 @@ describe User do
     end
   end
 
-  describe "decks and cards" do
+  context "decks and cards" do
     let(:deck)       { create(:deck_with_cards, user: user) }
     let(:other_deck) { create(:deck_with_cards, name: "Последнее", user: user) }
 
@@ -29,8 +29,9 @@ describe User do
 
     describe "#cards_for_review" do
       it "contains cards from all of user's decks if no deck is selected" do
-        expect(user.cards_for_review & deck.cards).not_to be_empty
-        expect(user.cards_for_review & other_deck.cards).not_to be_empty
+        (other_deck.cards + deck.cards).each do |deck_card|
+          expect(user.cards_for_review).to include(deck_card)
+        end
       end
 
       it "contains only cards from current_deck when it is selected" do
@@ -65,6 +66,21 @@ describe User do
         it "makes current deck nil" do
           expect(user.current_deck).to be_nil
         end
+      end
+    end
+  end
+
+  context "notification" do
+    describe ".with_pending_cards" do
+      let(:notified_user)    { create(:user_with_cards) }
+      let(:un_notified_user) { create(:user_without_pending_cards, email: "foo@bar.com") }
+
+      it "contains users that have pending cards" do
+        expect(User.with_pending_cards).to include(notified_user)
+      end
+
+      it "doesn't contain users without pending cards" do
+        expect(User.with_pending_cards).not_to include(un_notified_user)
       end
     end
   end

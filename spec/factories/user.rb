@@ -9,5 +9,11 @@ FactoryGirl.define do
         create(:deck_with_cards, user: user)
       end
     end
+
+    factory :user_without_pending_cards do
+      after(:create) do |user, _evaluator|
+        create(:deck_without_pending_cards, user: user)
+      end
+    end
   end
 end

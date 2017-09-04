@@ -16,7 +16,13 @@ class User < ApplicationRecord
                        confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
   class << self
-    def with_cards_for_review
+    def send_pending_cards_notification
+      with_pending_cards.each do |user|
+        NotificationsMailer.pending_cards(user).deliver_now
+      end
+    end
+
+    def with_pending_cards
       joins(:decks, :cards).where("? >= review_date", Date.current).distinct
     end
   end
@@ -30,7 +36,10 @@ class User < ApplicationRecord
   end
 
   def switch_deck(deck)
-    result = deck.id if decks.find(deck.id) && deck != current_deck
-    update(current_deck_id: result)
+    if deck == current_deck
+      update(current_deck_id: nil)
+    elsif decks.find(deck.id)
+      update(current_deck_id: deck.id)
+    end
   end
 end
